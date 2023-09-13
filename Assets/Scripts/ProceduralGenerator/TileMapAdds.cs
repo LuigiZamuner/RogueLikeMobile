@@ -9,7 +9,8 @@ public class TileMapAdds : MonoBehaviour
     [SerializeField] private TileBase floorTileBase;
     [SerializeField] private Tilemap wallTilemap;
     [SerializeField] private TileBase neutralWallTile;
-    
+
+    public List<Vector2Int> paintedWallPositions = new List<Vector2Int>();
 
     public void PaintFloor(IEnumerable<Vector2Int> floorPositions)
     {
@@ -25,6 +26,7 @@ public class TileMapAdds : MonoBehaviour
     internal void PaintNeutralWall(Vector2Int position)
     {
         PaintSingleTile(wallTilemap, neutralWallTile, position);
+        paintedWallPositions.Add(position);
     }
     private void PaintSingleTile(Tilemap tilemap, TileBase tileBase, Vector2Int position)
     {
@@ -35,5 +37,9 @@ public class TileMapAdds : MonoBehaviour
     {
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
+    }
+    public bool IsWallPosition(Vector2Int position)
+    {
+        return paintedWallPositions.Contains(position);
     }
 }

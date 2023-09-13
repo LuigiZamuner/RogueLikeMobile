@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class RandomWalkGenerator : MonoBehaviour
 {
@@ -14,17 +15,20 @@ public class RandomWalkGenerator : MonoBehaviour
     private HashSet<Vector2Int> floorPositions;
 
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject chestPrefab;
     public void RunProceduralGenerator()
     {
         floorPositions = RunRandomWalk();
         tileMapAdds.Clear();
         tileMapAdds.PaintFloor(floorPositions);
         WallPlacement.CreateWalls(floorPositions, tileMapAdds);
-        SpawnEnemys.instance.SpawnsRandomPositionEnemies(floorPositions, enemyPrefab, 5);
 
-
+        floorPositions.ExceptWith(tileMapAdds.paintedWallPositions);
+        GameManager.instance.SpawnsRandomPositionEnemies(floorPositions, enemyPrefab, 3);
+        GameManager.instance.SpawnsRandomPositionChest(floorPositions, chestPrefab, 1);
+          
+        
     }
-
     private HashSet<Vector2Int> RunRandomWalk()
     {
         var currentPosition = startPosition;
