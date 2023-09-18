@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        EventManager.Initialize();
         if (instance == null)
         {
             instance = this;

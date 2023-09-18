@@ -93,7 +93,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2112344125
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2063656657, guid: 055a1ebfbc9e7674b8cacd1f9139e2d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -119,3 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slimePuddle: {fileID: 2192516702752010787, guid: d9aa83ebb1212be48bea2dd9e3588ae8, type: 3}
+  lifeDropPrefab: {fileID: 1769806412038736342, guid: 841b984388408604eb734de670634efc, type: 3}

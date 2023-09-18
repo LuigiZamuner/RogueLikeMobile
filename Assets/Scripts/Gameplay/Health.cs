@@ -8,8 +8,8 @@ public class Health : MonoBehaviour
     [SerializeField]
     public GameObject deathPrefab;
     private Timer takeDamageTimer;
+    private int maxHealth = 15;
     public bool takingDamage = false;
-    public Vector2 finalPos= Vector2.zero;
     private float timerSeconds = 0.5f;
     private void Awake()
     {
@@ -38,5 +38,18 @@ public class Health : MonoBehaviour
         takingDamage= false;
         takeDamageTimer.Run();
     } 
+    public void Heal(int healPower)
+    {
+        if (health + healPower <= maxHealth)
+        {
+            health += healPower;
+        }
+        else
+        {
+            health = maxHealth;
+        }
+
+
+    }
 }
 

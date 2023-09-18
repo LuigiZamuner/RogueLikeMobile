@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Damage
   - Wall
+  - Fish
+  - Pillar
+  - Tatu
   layers:
   - Default
   - TransparentFX
@@ -46,9 +49,15 @@ TagManager:
   - name: Enemy
     uniqueID: 2112344125
     locked: 0
+  - name: Misc
+    uniqueID: 3954900737
+    locked: 0
   - name: Player
     uniqueID: 2355698981
     locked: 0
-  - name: Misc
-    uniqueID: 3954900737
+  - name: Wall
+    uniqueID: 1070621185
+    locked: 0
+  - name: Drops
+    uniqueID: 2882319343
     locked: 0

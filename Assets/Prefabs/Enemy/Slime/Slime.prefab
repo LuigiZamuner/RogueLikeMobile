@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7566dff28a7b0244c9261203ab62b138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  homingDelay: 0.2
+  homingTimer: {fileID: 0}
   followOrOposite: 0
 --- !u!114 &6893100361848160431
 MonoBehaviour:

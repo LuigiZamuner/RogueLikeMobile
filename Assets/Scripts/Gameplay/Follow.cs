@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Follow : MonoBehaviour
 {
-    GameObject ghost;
+    GameObject gO;
     Rigidbody2D rb2d;
     private float impulseForce;
+    [SerializeField]
     private float homingDelay;
-    Timer homingTimer;
+    public Timer homingTimer;
     private Animator anim;
     public bool followOrOposite = true;
 
@@ -24,8 +26,7 @@ public class Follow : MonoBehaviour
     void Start()
     {
         // save values for efficiency
-        ghost = GameObject.FindGameObjectWithTag("Player");
-        homingDelay = 0.2f;
+        gO = GameObject.FindGameObjectWithTag("Player");
         rb2d = GetComponent<Rigidbody2D>();
 
         // create and start timer
@@ -33,8 +34,10 @@ public class Follow : MonoBehaviour
         homingTimer.AddTimerFinishedEventListener(FollowBool);
         homingTimer.Run();
     }
- 
 
+    private void Update()
+    {
+    }
     /// <summary>
     /// Sets the impulse force
     /// </summary>
@@ -42,6 +45,7 @@ public class Follow : MonoBehaviour
     public void SetImpulseForce(float impulseForce)
     {
         this.impulseForce = impulseForce;
+
     }
 
     /// <summary>
@@ -53,7 +57,7 @@ public class Follow : MonoBehaviour
         rb2d.velocity = Vector2.zero;
 
         // calculate direction to burger and start moving toward it    
-        Vector2 direction = (ghost.transform.position - transform.position).normalized;
+        Vector2 direction = (gO.transform.position - transform.position).normalized;
         rb2d.AddForce(direction * impulseForce,ForceMode2D.Impulse);
 
         // restart timer
@@ -63,7 +67,7 @@ public class Follow : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
 
-        Vector2 direction = (transform.position - ghost.transform.position).normalized;
+        Vector2 direction = (transform.position - gO.transform.position).normalized;
         rb2d.AddForce(direction * impulseForce, ForceMode2D.Impulse);
 
         homingTimer.Run();

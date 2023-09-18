@@ -6,6 +6,8 @@ public class AnimationToDeath : MonoBehaviour
 {
     [SerializeField]
     GameObject slimePuddle;
+    [SerializeField]
+    GameObject lifeDropPrefab;
     private Animator anim;
 
     void Start()
@@ -13,6 +15,12 @@ public class AnimationToDeath : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetTrigger("death");
         StartCoroutine(WaitForAnimationEnd());
+        int random = Random.Range(0, 11);
+        if (random == 9)
+        {
+            Debug.Log(random);
+            Instantiate(lifeDropPrefab,gameObject.transform.position,Quaternion.identity);
+        }
     }
 
     IEnumerator WaitForAnimationEnd()

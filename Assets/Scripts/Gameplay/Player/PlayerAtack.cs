@@ -12,7 +12,7 @@ public class PlayerAtack : MonoBehaviour
     private bool isAtacking = false;
 
     private float attackDuration = 0.5f;
-    private float attackCountdown = 0.5f;
+    private float attackCountdown = 0.25f;
     private float timer = 0f;
     private Transform areaPosition;
     private Animator anim;

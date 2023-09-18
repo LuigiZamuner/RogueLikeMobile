@@ -8,5 +8,5 @@ using UnityEngine;
 public enum EventName
 {
 	TimerChangedEvent,
-	TakeDamageEvent,
+    CoinsAddedEvent,
 }
