@@ -6,11 +6,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [SerializeField]
     public Transform playerPos;
 
     //Spawns support
     private List<GameObject> enemyList = new List<GameObject>();
     private List<GameObject> chestList = new List<GameObject>();
+
+    //boss second form support
+    public int total = 0;
 
     private void Awake()
     {
@@ -68,5 +72,11 @@ public class GameManager : MonoBehaviour
             Destroy(chest);
         }
         chestList.Clear();
+    }
+    //boss
+    public void SecondFormBossspawner(int pillarDestroyed)
+    {
+         total += pillarDestroyed;
+       
     }
 }

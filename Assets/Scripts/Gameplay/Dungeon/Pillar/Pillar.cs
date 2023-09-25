@@ -23,6 +23,7 @@ public class Pillar : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tatu"))
         {
+
             count++;
             switch (count)
             {
@@ -37,6 +38,7 @@ public class Pillar : MonoBehaviour
                     break;
                 case 4:
                     Destroy(gameObject);
+                    GameManager.instance.SecondFormBossspawner(1);
                     break;
             }
         }

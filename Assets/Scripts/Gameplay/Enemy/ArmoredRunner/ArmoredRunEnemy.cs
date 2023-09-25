@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArmoredRunEnemy : MonoBehaviour
 {
     [SerializeField]
-    GameObject deathPrefab;
+    GameObject SecondFormPrefab;
     private Follow follow;
     private Rigidbody2D rb;
     private Animator anim;
@@ -24,22 +24,36 @@ public class ArmoredRunEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         follow= GetComponent<Follow>();
         follow.SetImpulseForce(7);
+        health.invulnerable= true;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
             StartCoroutine(WaitForSeconds(2));
+            health.invulnerable= false;
             follow.SetImpulseForce(0);
             anim.SetTrigger("stun");
             anim.SetBool("moving", false);
+
+            //secondFormBossSpawner
+            if(GameManager.instance.total == 3)
+            {
+                Health secondFormHealth = SecondFormPrefab.GetComponent<Health>();
+                secondFormHealth.CopyHealthFrom(health);
+                Instantiate(SecondFormPrefab,gameObject.transform.position, Quaternion.identity);
+                Destroy(gameObject);
+
+            }
 
         }
         if (collision.gameObject.CompareTag("Player"))
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
-            playerHealth.TakeDamage(4,deathPrefab);
+            playerHealth.TakeDamage(4);
+
         }
+
     }
     private void Update()
     {
@@ -57,5 +71,6 @@ public class ArmoredRunEnemy : MonoBehaviour
 
         follow.SetImpulseForce(7);
         anim.SetBool("moving", true);
+        health.invulnerable= true;
     }
 }

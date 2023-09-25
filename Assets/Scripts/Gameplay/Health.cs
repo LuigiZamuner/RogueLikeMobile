@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     private int maxHealth = 15;
     public bool takingDamage = false;
     private float timerSeconds = 0.5f;
+    public bool invulnerable = false;
     private void Awake()
     {
         takeDamageTimer = gameObject.AddComponent<Timer>();
@@ -22,16 +23,23 @@ public class Health : MonoBehaviour
     }
 
     
-    public void TakeDamage(int damage,GameObject deathPrefab)
+    public void TakeDamage(int damage, GameObject deathPrefab = null)
     {
-        takingDamage = true;
-        takeDamageTimer.Run();
-        health -= damage;
-        if (health <= 0)
+        if (invulnerable == false)
         {
-            Instantiate(deathPrefab, gameObject.transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            takingDamage = true;
+            takeDamageTimer.Run();
+            health -= damage;
+            if (health <= 0)
+            {
+                if (deathPrefab != null)
+                {
+                    Instantiate(deathPrefab, gameObject.transform.position, Quaternion.identity);
+                }
+                Destroy(gameObject);
+            }
         }
+
     }
     void HandleHomingTimerFinishedEvent()
     {
@@ -50,6 +58,10 @@ public class Health : MonoBehaviour
         }
 
 
+    }
+    public void CopyHealthFrom(Health other)
+    {
+        this.health = other.health;
     }
 }
 

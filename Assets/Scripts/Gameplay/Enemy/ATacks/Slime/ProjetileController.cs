@@ -18,7 +18,7 @@ public class ProjetileController : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
 
-        if (GameManager.instance.playerPos != null)
+        if (GameManager.instance != null)
         {
             Vector2 direction = (GameManager.instance.playerPos.position - transform.position).normalized;
             rb2D.velocity = direction * projectileSpeed;

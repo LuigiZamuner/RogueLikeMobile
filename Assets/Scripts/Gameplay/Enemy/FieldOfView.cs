@@ -12,10 +12,10 @@ public class FieldOfView : MonoBehaviour
     [SerializeField]
     private float colliderDistance;
     [SerializeField]
-    private BoxCollider2D boxCollider;
+    private Collider2D boxCollider;
     [SerializeField]
     private LayerMask playerLayer;
-
+    
 
 
     private SpriteRenderer sr;

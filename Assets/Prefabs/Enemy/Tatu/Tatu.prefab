@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2342616936418111840}
   m_Layer: 0
   m_Name: Tatu
-  m_TagString: Untagged
+  m_TagString: Tatu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 23189e5379e70d542a7de2b9ccf7c827, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a7ed67620036740825ac6e52b420c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathPrefab: {fileID: 0}
+  SecondFormPrefab: {fileID: 8615220215894948394, guid: ac9ba43d6f5648f4085db4ef429e505f, type: 3}
 --- !u!114 &2342616936418111840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +190,4 @@ MonoBehaviour:
   health: 15
   deathPrefab: {fileID: 0}
   takingDamage: 0
+  invulnerable: 0

@@ -5,12 +5,12 @@ using UnityEngine;
 public class SlimePuddle : MonoBehaviour
 {
     private Timer timerToDestroy;
-    private int timerDuration = 30;
+    private int timerDuration = 15;
     // Start is called before the first frame update
     void Start()
     {
         timerToDestroy = gameObject.AddComponent<Timer>();
-        timerToDestroy.Duration = 15;
+        timerToDestroy.Duration = timerDuration;
         timerToDestroy.AddTimerFinishedEventListener(FinishTimer);
         timerToDestroy.Run();
     }
