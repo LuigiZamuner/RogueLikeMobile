@@ -20,14 +20,13 @@ public class FinalForm : MonoBehaviour
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         health = GetComponent<Health>();
-        rb= GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         AtackPlayer1();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(wallHitCount);
         if (health.takingDamage == true)
         {
             anim.SetTrigger("hit");
@@ -52,21 +51,21 @@ public class FinalForm : MonoBehaviour
                 speed = 10;
                 StartCoroutine(WaitToAtack(waitForAtackSeconds));
             }
-            else if(wallHitCount <= 10 && wallHitCount >=6 )
+            else if (wallHitCount <= 10 && wallHitCount >= 6)
             {
                 sr.color = new Color(1f, 0.55f, 0.55f, 1f);
                 speed = 15;
                 waitForAtackSeconds = 0.5f;
                 StartCoroutine(WaitToAtack(waitForAtackSeconds));
             }
-            else if(wallHitCount <= 16 && wallHitCount >= 11)
+            else if (wallHitCount <= 16 && wallHitCount >= 11)
             {
                 sr.color = new Color(1f, 0f, 0f, 1f);
                 speed = 20;
                 waitForAtackSeconds = 0.25f;
                 StartCoroutine(WaitToAtack(waitForAtackSeconds));
             }
-            else if(wallHitCount == 17)
+            else if (wallHitCount == 17)
             {
                 waitForAtackSeconds = 1;
                 speed = 10;

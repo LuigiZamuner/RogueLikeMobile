@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     //boss second form support
     public int total = 0;
 
+    //rooms support
+    public bool allEnemiesDied = false;
+    [SerializeField]
+     GameObject door;
+
     private void Awake()
     {
         EventManager.Initialize();
@@ -39,7 +44,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             var randomSquare = floorPosition.ElementAt(Random.Range(0, floorPosition.Count));
-            Vector2 spawnPosition = new Vector3(randomSquare.x, randomSquare.y);
+            Vector2 spawnPosition = new Vector3(randomSquare.x + 0.5f, randomSquare.y + 0.6f);
             GameObject spawnedEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
             enemyList.Add(spawnedEnemy);
         }
@@ -59,7 +64,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numberOfChests; i++)
         {
             var randomSquare = floorPosition.ElementAt(Random.Range(0, floorPosition.Count));
-            Vector2 spawnPosition = new Vector3(randomSquare.x, randomSquare.y);
+            Vector2 spawnPosition = new Vector3(randomSquare.x + 0.8f, randomSquare.y +0.6f);
             GameObject spawnedChest = Instantiate(chest, spawnPosition, Quaternion.identity);
             chestList.Add(spawnedChest);
         }
@@ -77,6 +82,20 @@ public class GameManager : MonoBehaviour
     public void SecondFormBossspawner(int pillarDestroyed)
     {
          total += pillarDestroyed;
+       
+    }
+    public bool AllEnemiesDiedDoorApear()
+    {
+        if(enemyList.Count == 0)
+        {
+            allEnemiesDied= true;
+            return allEnemiesDied;
+        }
+        else
+        {
+            allEnemiesDied = false;
+            return allEnemiesDied;
+        }
        
     }
 }

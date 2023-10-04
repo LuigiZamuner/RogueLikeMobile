@@ -26,6 +26,7 @@ public class SecondFormTatu : MonoBehaviour
         follow= GetComponent<Follow>();
         anim= GetComponent<Animator>();
         health= GetComponent<Health>();
+        anim.SetBool("roll", true);
 
         timerToAtack.Duration = timerDuration;
         //atacou
@@ -35,6 +36,7 @@ public class SecondFormTatu : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        Debug.Log(atackCount);
         //mudar pra corotina
         if (health.takingDamage == true)
         {
@@ -43,13 +45,13 @@ public class SecondFormTatu : MonoBehaviour
         }
         if (timerToAtack.Finished)
         {
-            if (atackCount % 3 == 0 && atackCount != 12)
+            if (atackCount % 3 == 0 && atackCount != 7)
             {
                 Stuned();
-                StartCoroutine(Wait(2));
+                StartCoroutine(Wait(2.5f));
                 StartCoroutine(WaitForAtack(4.5f));
             }
-            else if(atackCount == 12)
+            else if(atackCount == 7)
             {
                 Health finalFormHealth = finalFormPrefab.GetComponent<Health>();
                 finalFormHealth.CopyHealthFrom(health);
@@ -82,11 +84,11 @@ public class SecondFormTatu : MonoBehaviour
     private IEnumerator Wait(float seconds)
     {
         anim.SetBool("roll", false);
-        anim.SetBool("stun",true);
+        anim.SetTrigger("stun");
         yield return new WaitForSeconds(seconds);
         health.invulnerable = true;
+        anim.ResetTrigger("stun");
         anim.SetBool("roll", true);
-        anim.SetBool("stun", false);
 
     }
 
@@ -97,21 +99,21 @@ public class SecondFormTatu : MonoBehaviour
             atackCount += 1;
             collider.enabled = false;
 
-            if (atackCount > 7)
+            if (atackCount > 5)
             {
                 for (int i = 0; i < 8; i++)
                 {
                     Instantiate(tornadoPrefab, gameObject.transform.position, Quaternion.identity);
                 }
             }
-            else if(atackCount <= 7 &&  atackCount >= 3)
+            else if(atackCount <= 5 &&  atackCount > 2)
             {
                 for (int i = 0; i < 5; i++)
                 {
                     Instantiate(tornadoPrefab, gameObject.transform.position, Quaternion.identity);
                 }
             }
-            else if(atackCount < 3)
+            else if(atackCount <= 2)
             {
                 for (int i = 0; i < 3; i++)
                 {

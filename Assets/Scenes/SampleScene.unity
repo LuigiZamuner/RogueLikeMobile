@@ -590,6 +590,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPos: {fileID: 1920344331}
   total: 0
+  allEnemiesDied: 0
+  door: {fileID: 0}
 --- !u!4 &680699618
 Transform:
   m_ObjectHideFlags: 0

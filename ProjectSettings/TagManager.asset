@@ -44,6 +44,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: tileMap1
+    uniqueID: 4168068575
+    locked: 0
+  - name: TileMap2
+    uniqueID: 2269771211
+    locked: 0
+  - name: TileMap3
+    uniqueID: 3698867711
+    locked: 0
+  - name: TileMap4
+    uniqueID: 2906817237
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
