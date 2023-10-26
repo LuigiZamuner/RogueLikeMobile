@@ -17,9 +17,14 @@ public static class EventManager
 		new Dictionary<EventName, List<UnityAction<int>>>();
 
 
+    static Dictionary<EventName, List<BoolEventInvoker>> boolInvokers =
+    new Dictionary<EventName, List<BoolEventInvoker>>();
+    static Dictionary<EventName, List<UnityAction<bool>>> boolListeners =
+        new Dictionary<EventName, List<UnityAction<bool>>>();
+
+
     #endregion
 
-    #region Public methods
 
     /// <summary>
     /// Initializes the event manager
@@ -33,12 +38,18 @@ public static class EventManager
             {
 				intInvokers.Add(name, new List<IntEventInvoker>());
 				intListeners.Add(name, new List<UnityAction<int>>());
-			}
+
+                boolInvokers.Add(name, new List<BoolEventInvoker>());
+                boolListeners.Add(name, new List<UnityAction<bool>>());
+            }
             else
             {
 				intInvokers[name].Clear();
 				intListeners[name].Clear();
-			}
+
+                boolInvokers[name].Clear();
+                boolListeners[name].Clear();
+            }
 		}
 	}
 		
@@ -57,12 +68,22 @@ public static class EventManager
 		intInvokers[eventName].Add(invoker);
 	}
 
-	/// <summary>
-	/// Adds the given listener for the given event name
-	/// </summary>
-	/// <param name="eventName">event name</param>
-	/// <param name="listener">listener</param>
-	public static void AddIntListener(EventName eventName, UnityAction<int> listener)
+    public static void AddBoolInvoker(EventName eventName, BoolEventInvoker invoker)
+    {
+        // add listeners to new invoker and add new invoker to dictionary
+        foreach (UnityAction<bool> listener in boolListeners[eventName])
+        {
+            invoker.AddListener(eventName, listener);
+        }
+        boolInvokers[eventName].Add(invoker);
+    }
+
+    /// <summary>
+    /// Adds the given listener for the given event name
+    /// </summary>
+    /// <param name="eventName">event name</param>
+    /// <param name="listener">listener</param>
+    public static void AddIntListener(EventName eventName, UnityAction<int> listener)
     {
 		// add as listener to all invokers and add new listener to dictionary
 		foreach (IntEventInvoker invoker in intInvokers[eventName])
@@ -73,15 +94,14 @@ public static class EventManager
 	}
 
 
-    /// <summary>
-    /// Removes the given invoker for the given event name
-    /// </summary>
-    /// <param name="eventName">event name</param>
-    /// <param name="invoker">invoker</param>
-    /// 
+    public static void AddBoolListener(EventName eventName, UnityAction<bool> listener)
+    {
+        // add as listener to all invokers and add new listener to dictionary
+        foreach (BoolEventInvoker invoker in boolInvokers[eventName])
+        {
+            invoker.AddListener(eventName, listener);
+        }
+        boolListeners[eventName].Add(listener);
+    }
 
-
-
-
-    #endregion
 }

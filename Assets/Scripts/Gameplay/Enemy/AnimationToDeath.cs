@@ -18,7 +18,6 @@ public class AnimationToDeath : MonoBehaviour
         int random = Random.Range(0, 11);
         if (random == 9)
         {
-            Debug.Log(random);
             Instantiate(lifeDropPrefab,gameObject.transform.position,Quaternion.identity);
         }
     }

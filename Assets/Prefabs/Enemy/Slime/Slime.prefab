@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 6893100361848160429}
   m_Layer: 0
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   health: 10
   deathPrefab: {fileID: 1604741888392472450, guid: 0a3573543af32bd4e8e2f0966d878fc9, type: 3}
   takingDamage: 0
-  finalPos: {x: 0, y: 0}
+  invulnerable: 0
 --- !u!114 &6893100361848160430
 MonoBehaviour:
   m_ObjectHideFlags: 0

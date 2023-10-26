@@ -1,42 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private GameObject player;
     [SerializeField]
     public Transform playerPos;
+    [SerializeField]
+    public Health playerHealth;
+    [SerializeField]
+    public AnimatorController playerAnimator;
 
-    //Spawns support
-    private List<GameObject> enemyList = new List<GameObject>();
-    private List<GameObject> chestList = new List<GameObject>();
+    [Header("Spawns Support")]
+    public List<GameObject> enemyList = new List<GameObject>();
+    public List<GameObject> chestList = new List<GameObject>();
 
-    //boss second form support
+    [Header("Boss Support")]
     public int total = 0;
 
-    //rooms support
+    [Header("Rooms Support")]
+
     public bool allEnemiesDied = false;
-    [SerializeField]
-     GameObject door;
+    public int roomCount = 0;
+
+    [Header("Canvas Support")]
+
+    public int fishPointCounter = 0;
 
     private void Awake()
     {
         EventManager.Initialize();
+
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-    }
-    private void Update()
-    {
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        Transform newPlayerPos = player.transform;
+        playerPos = newPlayerPos;
+
+        playerHealth = player.GetComponent<Health>();
+        player.GetComponent<Animator>().runtimeAnimatorController = playerAnimator ;
+
+        Debug.Log(player.GetComponent<Animator>().runtimeAnimatorController);
+    }
+
+
     //SPAWNS
     public void SpawnsRandomPositionEnemies(HashSet<Vector2Int> floorPosition, GameObject enemy, int numberOfEnemies)
     {
@@ -97,5 +127,11 @@ public class GameManager : MonoBehaviour
             return allEnemiesDied;
         }
        
+    }
+    //Player
+    public void ChangePlayerAnimatorController(AnimatorController aC)
+    {
+        playerAnimator = aC;
+        player.GetComponent<Animator>().runtimeAnimatorController = playerAnimator;
     }
 }

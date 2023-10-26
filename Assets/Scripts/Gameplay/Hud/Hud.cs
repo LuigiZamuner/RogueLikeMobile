@@ -13,12 +13,13 @@ public class Hud : MonoBehaviour
     // score support
     [SerializeField]
     TextMeshProUGUI coinsText;
-    public int coins = 0;
+    public int coins;
 
 
 
     void Start()
     {
+        coins += GameManager.instance.fishPointCounter;
         EventManager.AddIntListener(EventName.CoinsAddedEvent, HandleCoinsAddedEvent);
         coinsText.text = ": " + coins;
     }
@@ -38,5 +39,6 @@ public class Hud : MonoBehaviour
     {
         coins += points;
         coinsText.text = "Souls: " + coins;
+        GameManager.instance.fishPointCounter += points;
     }
 }

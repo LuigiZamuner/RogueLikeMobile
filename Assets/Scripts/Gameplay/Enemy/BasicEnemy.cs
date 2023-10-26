@@ -52,6 +52,7 @@ public class BasicEnemy : MonoBehaviour
             }
             else
             {
+
                 anim.SetTrigger("hit");
                 rb2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             }
