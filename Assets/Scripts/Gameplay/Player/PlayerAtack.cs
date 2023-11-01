@@ -66,10 +66,11 @@ public class PlayerAtack : MonoBehaviour
         }
 
     }
-    private void Atack()
+    public void Atack()
     {
         if (!isAtacking && timer >= attackCountdown)
         {
+
             isAtacking = true;
             atackArea.SetActive(isAtacking);
             swordPrefab.SetActive(isAtacking);

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4621317251775958841}
   - component: {fileID: 4621317251775958840}
   - component: {fileID: 1306924179}
+  - component: {fileID: 498799164}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -204,6 +205,7 @@ MonoBehaviour:
   deathPrefab: {fileID: 0}
   takingDamage: 0
   invulnerable: 0
+  isDead: 0
 --- !u!96 &1306924179
 TrailRenderer:
   serializedVersion: 2
@@ -303,6 +305,21 @@ TrailRenderer:
   m_MinVertexDistance: 0
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &498799164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621317251775958833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7660ee1a99e66488b54b87b1de3588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystickSize: {x: 350, y: 350}
+  joystick: {fileID: 0}
+  movementAmount: {x: 0, y: 0}
 --- !u!1 &4621317252370577628
 GameObject:
   m_ObjectHideFlags: 0

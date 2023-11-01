@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("player Support")]
     private GameObject player;
     [SerializeField]
     public Transform playerPos;
@@ -32,6 +34,9 @@ public class GameManager : MonoBehaviour
     [Header("Canvas Support")]
 
     public int fishPointCounter = 0;
+
+
+
 
     private void Awake()
     {
@@ -64,6 +69,22 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Animator>().runtimeAnimatorController = playerAnimator ;
 
         Debug.Log(player.GetComponent<Animator>().runtimeAnimatorController);
+
+        if(scene.name == "InitialPlace")
+        {
+            AudioManager.instance.PlayMusic("InitialMusic");
+            DOTween.To(() => AudioManager.instance.musicSource.volume, x => AudioManager.instance.musicSource.volume = x, 0.2f, 4f);
+
+        }
+        else if (scene.name == "Rooms")
+        {
+            AudioManager.instance.PlayMusic("RoomsMusic");
+            DOTween.To(() => AudioManager.instance.musicSource.volume, x => AudioManager.instance.musicSource.volume = x, 0.2f, 4f);
+        }
+        else if (scene.name == "BossBattle")
+        {
+            AudioManager.instance.PlayMusic("BossMusic");
+        }
     }
 
 
@@ -133,5 +154,11 @@ public class GameManager : MonoBehaviour
     {
         playerAnimator = aC;
         player.GetComponent<Animator>().runtimeAnimatorController = playerAnimator;
+    }
+
+    public void FreezePlayer()
+    {
+       Rigidbody2D playerRb =  player.GetComponent<Rigidbody2D>();
+        playerRb.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,21 +16,26 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sr;
     public float moveSpeed = 5;
     private Animator anim;
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool canDash = true;
-    private float dashingPower = 15f; 
-    private float dashDuration = 0.2f; 
-    private float dashCooldown = 1.5f; 
+    private float dashingPower = 15f;
+    private float dashDuration = 0.2f;
+    private float dashCooldown = 1.5f;
 
+    public int animationIndex = 0; //0= idle 1= up 2= down 3= right 4= left
+    private PlayerTouchMovement touchMovement;
     private void Awake()
     {
 
         input = new CustomInput();
         rb = GetComponent<Rigidbody2D>();
-        anim= GetComponent<Animator>();
-        tr= GetComponent<TrailRenderer>();
+        anim = GetComponent<Animator>();
+        tr = GetComponent<TrailRenderer>();
         sr = GetComponent<SpriteRenderer>();
-        playerHealth= GetComponent<Health>();
+        playerHealth = GetComponent<Health>();
+
+        // Obtenha uma referência ao PlayerTouchMovement
+        touchMovement = GetComponent<PlayerTouchMovement>();
 
     }
     private void Start()
@@ -50,13 +56,21 @@ public class PlayerMovement : MonoBehaviour
         input.Player.Movement.performed -= OnMovementPerformed;
         input.Player.Movement.canceled -= OnMovementCanceled;
         input.Player.Dash.started -= OnDashStarted;
+
+
     }
 
     private void FixedUpdate()
     {
-
         if (!isDashing)
         {
+            // Verifique se há entrada do joystick
+            if (touchMovement != null)
+            {
+                moveVector = touchMovement.movementAmount;
+                UpdateAnimation();
+            }
+
             rb.velocity = moveVector * moveSpeed;
         }
     }
@@ -64,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
         moveVector = value.ReadValue<Vector2>();
-        UpdateAnimation();
         lastMoveDirection = moveVector.normalized;
     }
     private void OnMovementCanceled(InputAction.CallbackContext value)
@@ -73,6 +86,14 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("idle", true);
     }
     private void OnDashStarted(InputAction.CallbackContext value)
+    {
+        if (canDash && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    public void CallDashButton()
     {
         if (canDash && !isDashing)
         {
@@ -105,23 +126,37 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimation()
     {
         anim.SetBool("idle", false);
-        if (moveVector == new Vector2(0, 1))
+
+        float moveX = moveVector.x;
+        float moveY = moveVector.y;
+
+        if (Mathf.Abs(moveX) >= Mathf.Abs(moveY))
         {
-            anim.SetTrigger("walkUp");
+            if (moveX > 0 && animationIndex != 3)
+            {
+                anim.SetTrigger("walkRight");
+                animationIndex = 3;
+
+            }
+            else if (moveX < 0 && animationIndex != 4)
+            {
+                anim.SetTrigger("walkLeft");
+                animationIndex = 4;
+            }
         }
-        else if (moveVector == new Vector2(1, 0))
+        else if(Mathf.Abs(moveY) >= Mathf.Abs(moveX))
         {
-            anim.SetTrigger("walkRight");
-        }
-        else if (moveVector == new Vector2(0, -1))
-        {
-            anim.SetTrigger("walkDown");
-        }
-        else if (moveVector == new Vector2(-1, 0))
-        {
-            anim.SetTrigger("walkLeft");
+            if (moveY > 0 && animationIndex != 1)
+            {
+                anim.SetTrigger("walkUp");
+                animationIndex = 1;
+            }
+            else if (moveY < 0 && animationIndex != 2)
+            {
+                anim.SetTrigger("walkDown");
+                animationIndex = 2;
+            }
         }
 
     }
-
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class Dungeon1Enter : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            SceneController.instance.NextLevel("Rooms");
+            GameManager.instance.FreezePlayer();
+            DOTween.To(() => AudioManager.instance.musicSource.volume, x => AudioManager.instance.musicSource.volume = x, 0f, 2.5f).OnComplete(() =>
+            {
+                SceneController.instance.NextLevel("Rooms");
+            });
         }
-
     }
 }

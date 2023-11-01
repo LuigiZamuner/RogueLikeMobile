@@ -15,10 +15,7 @@ public class ShopMenu : MonoBehaviour
     {
         coinsText.text = ": " + GameManager.instance.fishPointCounter;
     }
-    private void Update()
-    {
-        coinsText.text = ": " + GameManager.instance.fishPointCounter;
-    }
+
 
 
     public void CloseShopMenu()
