@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float dashCooldown = 1.5f;
 
     public int animationIndex = 0; //0= idle 1= up 2= down 3= right 4= left
+    public int lastAnimationIndex = 1;
     private PlayerTouchMovement touchMovement;
     private void Awake()
     {
@@ -104,12 +105,14 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        Vector2 dashDirection = lastMoveDirection.normalized;
+
+        Vector2 dashDirection = touchMovement.GetMovementInput().normalized;
 
         rb.velocity = dashDirection * dashingPower;
         tr.emitting = true;
         sr.color = new Color(1f, 1f, 1f, 0.4f);
         playerHealth.invulnerable = true;
+        Debug.Log(dashDirection);
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -136,12 +139,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetTrigger("walkRight");
                 animationIndex = 3;
+                lastAnimationIndex = animationIndex;
+
 
             }
             else if (moveX < 0 && animationIndex != 4)
             {
                 anim.SetTrigger("walkLeft");
                 animationIndex = 4;
+                lastAnimationIndex = animationIndex;
             }
         }
         else if(Mathf.Abs(moveY) >= Mathf.Abs(moveX))
@@ -150,13 +156,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetTrigger("walkUp");
                 animationIndex = 1;
+                lastAnimationIndex = animationIndex;
             }
             else if (moveY < 0 && animationIndex != 2)
             {
                 anim.SetTrigger("walkDown");
                 animationIndex = 2;
+                lastAnimationIndex = animationIndex;
             }
         }
+
 
     }
 }

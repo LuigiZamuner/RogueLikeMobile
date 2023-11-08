@@ -12,9 +12,9 @@ public class Dungeon1Enter : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             GameManager.instance.FreezePlayer();
+            SceneController.instance.NextLevel("Rooms");
             DOTween.To(() => AudioManager.instance.musicSource.volume, x => AudioManager.instance.musicSource.volume = x, 0f, 2.5f).OnComplete(() =>
             {
-                SceneController.instance.NextLevel("Rooms");
             });
         }
     }

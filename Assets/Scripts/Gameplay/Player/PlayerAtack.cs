@@ -75,31 +75,62 @@ public class PlayerAtack : MonoBehaviour
             atackArea.SetActive(isAtacking);
             swordPrefab.SetActive(isAtacking);
 
+
             Vector2 horizontalInput = atackInput.Player.Movement.ReadValue<Vector2>();
-            if (horizontalInput == new Vector2(0, 1) || pM.lastMoveDirection == Vector2.up) //cima
-            {
-                anim.SetTrigger("upAttack");
-                atackArea.transform.rotation = Quaternion.Euler(0, 0, 90);
-                atackArea.transform.position = new Vector2(areaPosition.position.x - 0.25f, areaPosition.position.y - 0.3f);
-            }
-            else if (horizontalInput == new Vector2(0, -1) || pM.lastMoveDirection == Vector2.down) // baixo
-            {
-                anim.SetTrigger("downAttack");
-                atackArea.transform.rotation = Quaternion.Euler(0, 0, -90);
-                atackArea.transform.position = new Vector2(areaPosition.position.x + 0.28f, areaPosition.position.y - 0.26f);
-            }
-            else if (horizontalInput == new Vector2(1, 0) || pM.lastMoveDirection == Vector2.right) // direita
+
+
+
+            if (pM.lastAnimationIndex == 3)
             {
                 anim.SetTrigger("rightAttack");
                 atackArea.transform.rotation = Quaternion.Euler(0, 0, 0);
                 atackArea.transform.position = new Vector2(areaPosition.position.x, areaPosition.position.y);
             }
-            else if (horizontalInput == new Vector2(-1, 0) || pM.lastMoveDirection == Vector2.left)  //esquerda
+            else if (pM.lastAnimationIndex == 4)
             {
                 anim.SetTrigger("leftAttack");
                 atackArea.transform.rotation = Quaternion.Euler(0, 0, -180);
                 atackArea.transform.position = new Vector2(areaPosition.position.x + 0.05f, areaPosition.position.y - 0.53f);
             }
+
+
+            else if (pM.lastAnimationIndex == 1)
+            {
+                anim.SetTrigger("upAttack");
+                atackArea.transform.rotation = Quaternion.Euler(0, 0, 90);
+                atackArea.transform.position = new Vector2(areaPosition.position.x - 0.25f, areaPosition.position.y - 0.3f);
+            }
+            else if (pM.lastAnimationIndex == 2)
+            {
+                anim.SetTrigger("downAttack");
+                atackArea.transform.rotation = Quaternion.Euler(0, 0, -90);
+                atackArea.transform.position = new Vector2(areaPosition.position.x + 0.28f, areaPosition.position.y - 0.26f);
+            }
+
+            //if (horizontalInput == new Vector2(0, 1) || pM.lastMoveDirection == Vector2.up) //cima
+            //{
+            //    anim.SetTrigger("upAttack");
+            //    atackArea.transform.rotation = Quaternion.Euler(0, 0, 90);
+            //    atackArea.transform.position = new Vector2(areaPosition.position.x - 0.25f, areaPosition.position.y - 0.3f);
+            //}
+            //else if (horizontalInput == new Vector2(0, -1) || pM.lastMoveDirection == Vector2.down) // baixo
+            //{
+            //    anim.SetTrigger("downAttack");
+            //    atackArea.transform.rotation = Quaternion.Euler(0, 0, -90);
+            //    atackArea.transform.position = new Vector2(areaPosition.position.x + 0.28f, areaPosition.position.y - 0.26f);
+            //}
+            //else if (horizontalInput == new Vector2(1, 0) || pM.lastMoveDirection == Vector2.right) // direita
+            //{
+            //    anim.SetTrigger("rightAttack");
+            //    atackArea.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //    atackArea.transform.position = new Vector2(areaPosition.position.x, areaPosition.position.y);
+            //}
+            //else if (horizontalInput == new Vector2(-1, 0) || pM.lastMoveDirection == Vector2.left)  //esquerda
+            //{
+            //    anim.SetTrigger("leftAttack");
+            //    atackArea.transform.rotation = Quaternion.Euler(0, 0, -180);
+            //    atackArea.transform.position = new Vector2(areaPosition.position.x + 0.05f, areaPosition.position.y - 0.53f);
+            //}
 
             timer = 0f;
         }
