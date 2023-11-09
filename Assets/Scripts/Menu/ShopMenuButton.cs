@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class ShopMenuButton : MonoBehaviour
 {
     [SerializeField]
-    AnimatorController skinControler1;
+    RuntimeAnimatorController skinControler1;
     [SerializeField]
     TextMeshProUGUI buyText;
     [SerializeField]

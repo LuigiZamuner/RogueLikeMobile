@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public Health playerHealth;
     [SerializeField]
-    public AnimatorController playerAnimator;
+    public RuntimeAnimatorController playerAnimator;
 
     [Header("Spawns Support")]
     public List<GameObject> enemyList = new List<GameObject>();
@@ -150,7 +149,7 @@ public class GameManager : MonoBehaviour
        
     }
     //Player
-    public void ChangePlayerAnimatorController(AnimatorController aC)
+    public void ChangePlayerAnimatorController(RuntimeAnimatorController aC)
     {
         playerAnimator = aC;
         player.GetComponent<Animator>().runtimeAnimatorController = playerAnimator;
