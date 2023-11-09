@@ -64,6 +64,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
             // Grant a reward.
             GameManager.instance.playerHealth.Heal(100);
             SceneManager.UnloadScene("DeathScene");
+            Time.timeScale = 1.0f;
             GameManager.instance.playerHealth.InvulnerableModeActivate();
 
 
